@@ -1,4 +1,5 @@
 -- Schema for SQLite database "antibody_tracker.db"
+DROP TABLE IF EXISTS antibody_information;
 CREATE TABLE antibody_information(
   project TEXT,
   external_id_vh_vl TEXT,
@@ -6,12 +7,12 @@ CREATE TABLE antibody_information(
   description TEXT,
   vh_sequence TEXT,
   vl_sequence TEXT);
-
+DROP TABLE IF EXISTS antibody_information_docs;
 CREATE TABLE antibody_information_docs(
   antibody_information_docs_id INTEGER PRIMARY KEY,
   tusk_id TEXT REFERENCES antibody_information(tusk_id),
   document BLOB);
-
+DROP TABLE IF EXISTS inventory_information;
 CREATE TABLE inventory_information(
   inventory_information_id INTEGER PRIMARY KEY,
   batch_number TEXT,
@@ -31,9 +32,15 @@ CREATE TABLE inventory_information(
   reservations INTEGER,
   notes TEXT,
   tusk_id TEXT REFERENCES antibody_information(tusk_id));
-
+DROP TABLE IF EXISTS inventory_information_docs;
 CREATE TABLE inventory_information_docs(
   inventory_information_docs_id INTEGER PRIMARY KEY,
   production_report BLOB,
   antibody_batch_data_sheet BLOB,
   inventory_information_id INTEGER REFERENCES inventory_information(inventory_information_id));
+drop table if exists entries;
+create table entries (
+  id integer primary key autoincrement,
+  title text not null,
+  text text not null
+);
